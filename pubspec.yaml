@@ -1,0 +1,51 @@
+name: i_kainks
+description: "Application de gestion commerciale et financière polyvalente - i-Kaink's"
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.1.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  
+  # Base de données locale hors-ligne
+  isar: ^3.1.0+1
+  isar_flutter_libs: ^3.1.0+1
+  
+  # Gestion d'état
+  flutter_riverpod: ^2.4.9
+  
+  # Graphiques financiers & UI
+  fl_chart: ^0.66.0
+  
+  # Moteur d'impression et génération de factures/reçus PDF
+  pdf: ^3.10.7
+  printing: ^5.11.1
+  
+  # Internationalisation et formatage
+  intl: 0.20.3
+  shared_preferences: ^2.2.2
+  
+  # # Monétisation Freemium / Ads
+  # google_mobile_ads: ^4.0.0
+  path_provider: ^2.1.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+  
+  # Générateurs de code pour Isar DB
+  isar_generator: ^3.1.0+1
+  build_runner: ^2.4.8
+
+flutter:
+  uses-material-design: true
+  
+  # Définition des assets (logos, images, etc.)
+  # assets:
+  #   - assets/images/
