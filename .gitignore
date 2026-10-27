@@ -46,3 +46,11 @@ app.*.map.json
 
 # Widget Preview related
 .widget_preview/
+.ikainks_backups/
+build/
+.gradle/
+android/.gradle/
+.vscode/
+.env
+key.properties
+RESULTAT_PUSH_GITHUB.txt

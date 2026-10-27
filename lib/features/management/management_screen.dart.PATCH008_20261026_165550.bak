@@ -1,0 +1,144 @@
+import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../settings/settings_screen.dart';
+
+class ManagementScreen extends StatefulWidget {
+  const ManagementScreen({super.key});
+  @override
+  State<ManagementScreen> createState() => _ManagementScreenState();
+}
+
+class _ManagementScreenState extends State<ManagementScreen> {
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+  final List<String> _names = ['Tableau de bord', 'Articles & stock', 'Ventes', 'Clients', 'Fournisseurs', 'Rapports', 'Entreprise'];
+  final List<IconData> _icons = [Icons.dashboard_rounded, Icons.inventory_2_rounded, Icons.point_of_sale_rounded, Icons.people_rounded, Icons.local_shipping_rounded, Icons.bar_chart_rounded, Icons.settings_rounded];
+  List<Map<String, dynamic>> articles = [], clients = [], suppliers = [], sales = [];
+  int page = 0;
+  bool loading = true;
+  String? error;
+  @override
+  void initState() { super.initState(); _load(); }
+  Future<void> _load() async {
+    try {
+      final p = await SharedPreferences.getInstance();
+      List<Map<String,dynamic>> read(String key) {
+        final raw = p.getString('ikainks_v005_$key');
+        if (raw == null) return [];
+        return (jsonDecode(raw) as List).map((x) => Map<String,dynamic>.from(x as Map)).toList();
+      }
+      if (!mounted) return;
+      setState(() { articles = read('articles'); clients = read('clients'); suppliers = read('suppliers'); sales = read('sales'); loading = false; });
+    } catch (e) { if (mounted) setState(() { error = '$e'; loading = false; }); }
+  }
+  Future<void> _save(String key, List<Map<String,dynamic>> data) async {
+    try {
+      final p = await SharedPreferences.getInstance();
+      final ok = await p.setString('ikainks_v005_$key', jsonEncode(data));
+      if (!ok) throw Exception('Enregistrement non confirmé');
+      if (mounted) setState(() {});
+    } catch (e) { if (mounted) _message('Erreur de sauvegarde : $e'); }
+  }
+  void _message(String text) { ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(text))); }
+  double _num(dynamic value) => (value is num) ? value.toDouble() : double.tryParse('$value'.replaceAll(',', '.')) ?? 0;
+  String _ar(num value) => '${value.toStringAsFixed(0)} Ar';
+  String _id() => DateTime.now().microsecondsSinceEpoch.toString();
+  InputDecoration _dec(String label) => InputDecoration(labelText: label, border: const OutlineInputBorder(), isDense: true);
+  Widget _field(TextEditingController c, String label, {bool number = false}) => Padding(padding: const EdgeInsets.only(bottom: 12), child: TextField(controller: c, keyboardType: number ? const TextInputType.numberWithOptions(decimal: true) : TextInputType.text, decoration: _dec(label)));
+  Future<void> _entityDialog(String kind, {Map<String,dynamic>? old}) async {
+    final isArticle = kind == 'articles';
+    final data = kind == 'articles' ? articles : kind == 'clients' ? clients : suppliers;
+    final name = TextEditingController(text: '${old?['name'] ?? ''}');
+    final phone = TextEditingController(text: '${old?['phone'] ?? ''}');
+    final category = TextEditingController(text: '${old?['category'] ?? ''}');
+    final price = TextEditingController(text: '${old?['price'] ?? ''}');
+    final cost = TextEditingController(text: '${old?['cost'] ?? ''}');
+    final qty = TextEditingController(text: '${old?['qty'] ?? ''}');
+    final alert = TextEditingController(text: '${old?['alert'] ?? 5}');
+    final address = TextEditingController(text: '${old?['address'] ?? ''}');
+    final result = await showDialog<Map<String,dynamic>>(context: context, builder: (ctx) => AlertDialog(
+      title: Text(old == null ? 'Ajouter ${isArticle ? 'un article' : 'un contact'}' : 'Modifier'),
+      content: SizedBox(width: 440, child: SingleChildScrollView(child: Column(mainAxisSize: MainAxisSize.min, children: [
+        _field(name, isArticle ? 'Désignation *' : 'Nom *'),
+        if (isArticle) ...[_field(category, 'Catégorie'), _field(cost, 'Prix d’achat (Ar)', number: true), _field(price, 'Prix de vente (Ar)', number: true), _field(qty, 'Quantité', number: true), _field(alert, 'Seuil d’alerte', number: true)]
+        else ...[_field(phone, 'Téléphone'), _field(address, 'Adresse')],
+      ]))),
+      actions: [TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('Annuler')), FilledButton(onPressed: () {
+        if (name.text.trim().isEmpty) return;
+        final item = <String,dynamic>{'id': old?['id'] ?? _id(), 'name': name.text.trim()};
+        if (isArticle) { item.addAll({'category':category.text.trim(), 'cost':_num(cost.text), 'price':_num(price.text), 'qty':_num(qty.text), 'alert':_num(alert.text)}); }
+        else { item.addAll({'phone':phone.text.trim(), 'address':address.text.trim()}); }
+        Navigator.pop(ctx, item);
+      }, child: const Text('Enregistrer'))],
+    ));
+    for (final c in [name,phone,category,price,cost,qty,alert,address]) { c.dispose(); }
+    if (result == null) return;
+    setState(() { if (old != null) { final i = data.indexWhere((x) => x['id'] == old['id']); if (i >= 0) data[i] = result; } else { data.add(result); } });
+    await _save(kind, data);
+  }
+  Future<void> _delete(String kind, Map<String,dynamic> item) async {
+    final yes = await showDialog<bool>(context: context, builder: (ctx) => AlertDialog(title: const Text('Confirmer la suppression'), content: Text('Supprimer ${item['name']} ?'), actions: [TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('Annuler')), FilledButton(onPressed: () => Navigator.pop(ctx, true), child: const Text('Supprimer'))]));
+    if (yes != true) return;
+    final data = kind == 'articles' ? articles : kind == 'clients' ? clients : suppliers;
+    setState(() => data.removeWhere((x) => x['id'] == item['id']));
+    await _save(kind, data);
+  }
+  Future<void> _sell() async {
+    if (articles.where((a) => _num(a['qty']) > 0).isEmpty) { _message('Ajoutez un article en stock avant de vendre.'); return; }
+    String? chosen = articles.firstWhere((a) => _num(a['qty']) > 0)['id'].toString();
+    final quantity = TextEditingController(text: '1');
+    final customer = TextEditingController();
+    final result = await showDialog<Map<String,dynamic>>(context: context, builder: (ctx) => StatefulBuilder(builder: (ctx, refresh) => AlertDialog(
+      title: const Text('Nouvelle vente'), content: SizedBox(width: 430, child: Column(mainAxisSize: MainAxisSize.min, children: [
+        DropdownButtonFormField<String>(initialValue: chosen, isExpanded: true, decoration: _dec('Article'), items: articles.where((a) => _num(a['qty']) > 0).map((a) => DropdownMenuItem(value: a['id'].toString(), child: Text('${a['name']} — ${_ar(_num(a['price']))} (stock: ${a['qty']})', overflow: TextOverflow.ellipsis))).toList(), onChanged: (v) => refresh(() => chosen = v)),
+        const SizedBox(height: 12), _field(quantity, 'Quantité', number: true), _field(customer, 'Client (facultatif)'),
+      ])), actions: [TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('Annuler')), FilledButton(onPressed: () {
+        final a = articles.firstWhere((a) => a['id'].toString() == chosen);
+        final q = _num(quantity.text);
+        if (q <= 0 || q != q.roundToDouble() || q > _num(a['qty'])) { ScaffoldMessenger.of(ctx).showSnackBar(const SnackBar(content: Text('Quantité invalide ou stock insuffisant'))); return; }
+        Navigator.pop(ctx, {'id':_id(), 'articleId':chosen, 'article':a['name'], 'quantity':q, 'unitPrice':_num(a['price']), 'total':q*_num(a['price']), 'customer':customer.text.trim(), 'date':DateTime.now().toIso8601String()});
+      }, child: const Text('Valider la vente'))],
+    )));
+    quantity.dispose(); customer.dispose();
+    if (result == null) return;
+    final idx = articles.indexWhere((a) => a['id'].toString() == result['articleId']);
+    if (idx < 0 || _num(articles[idx]['qty']) < _num(result['quantity'])) { _message('Stock modifié : vente annulée'); return; }
+    setState(() { articles[idx]['qty'] = _num(articles[idx]['qty']) - _num(result['quantity']); sales.add(result); });
+    await _save('articles', articles); await _save('sales', sales);
+    _message('Vente enregistrée : ${_ar(_num(result['total']))}');
+  }
+  Widget _panel(String title, Widget child, {Widget? action}) => Card(child: Padding(padding: const EdgeInsets.all(18), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Row(children: [Expanded(child: Text(title, style: Theme.of(context).textTheme.titleLarge)), if (action != null) action]), const SizedBox(height: 12), child])));
+  Widget _dashboard() {
+    final revenue = sales.fold<double>(0, (s,x) => s+_num(x['total']));
+    final low = articles.where((a) => _num(a['qty']) <= _num(a['alert'])).length;
+    final stockValue = articles.fold<double>(0, (s,x) => s+_num(x['qty'])*_num(x['cost']));
+    return ListView(children: [Wrap(spacing: 12, runSpacing: 12, children: [
+      _metric('Chiffre d’affaires', _ar(revenue), Icons.payments, const Color(0xff087c68)),
+      _metric('Articles', '${articles.length}', Icons.inventory_2, const Color(0xff2459ad)),
+      _metric('Alertes stock', '$low', Icons.warning_amber, const Color(0xffbb6500)),
+      _metric('Valeur du stock', _ar(stockValue), Icons.account_balance_wallet, const Color(0xff8d3bb8)),
+    ]), const SizedBox(height: 12), _panel('Bienvenue sur i-Kaink’s', const Text('Gestion locale de votre quincaillerie : créez vos articles, gérez les clients et fournisseurs, puis enregistrez vos ventes. Les données sont stockées sur cet appareil.')), _panel('Actions rapides', Wrap(spacing: 10, runSpacing: 10, children: [FilledButton.icon(onPressed: () => _entityDialog('articles'), icon: const Icon(Icons.add), label: const Text('Ajouter un article')), OutlinedButton.icon(onPressed: _sell, icon: const Icon(Icons.point_of_sale), label: const Text('Nouvelle vente')), OutlinedButton.icon(onPressed: () => setState(() => page = 6), icon: const Icon(Icons.settings), label: const Text('Entreprise'))]))]);
+  }
+  Widget _metric(String title, String value, IconData icon, Color color) => SizedBox(width: 235, child: Card(child: Padding(padding: const EdgeInsets.all(18), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Icon(icon, color: color), const SizedBox(height: 14), Text(value, style: TextStyle(fontSize: 24, fontWeight: FontWeight.w800, color: color)), Text(title)]))));
+  Widget _entities(String kind) {
+    final isArticle = kind == 'articles';
+    final data = isArticle ? articles : kind == 'clients' ? clients : suppliers;
+    return _panel(isArticle ? 'Catalogue et stock' : kind == 'clients' ? 'Répertoire clients' : 'Répertoire fournisseurs', Column(children: [if (data.isEmpty) const Padding(padding: EdgeInsets.all(22), child: Text('Aucune donnée. Cliquez sur Ajouter pour commencer.')), ...data.map((x) => Card.filled(child: ListTile(leading: Icon(isArticle ? Icons.inventory_2_outlined : Icons.person_outline), title: Text('${x['name']}'), subtitle: Text(isArticle ? '${x['category']} • Stock : ${x['qty']} • Vente : ${_ar(_num(x['price']))}${_num(x['qty']) <= _num(x['alert']) ? ' • STOCK BAS' : ''}' : '${x['phone']} • ${x['address']}'), trailing: Wrap(mainAxisSize: MainAxisSize.min, children: [IconButton(tooltip: 'Modifier', onPressed: () => _entityDialog(kind, old: x), icon: const Icon(Icons.edit_outlined)), IconButton(tooltip: 'Supprimer', onPressed: () => _delete(kind,x), icon: const Icon(Icons.delete_outline))])))]), action: FilledButton.icon(onPressed: () => _entityDialog(kind), icon: const Icon(Icons.add), label: const Text('Ajouter')));
+  }
+  Widget _sales() => _panel('Historique des ventes', Column(children: [if (sales.isEmpty) const Padding(padding: EdgeInsets.all(20), child: Text('Aucune vente enregistrée.')), ...sales.reversed.map((x) => ListTile(leading: const Icon(Icons.receipt_long), title: Text('${x['article']} × ${x['quantity']}'), subtitle: Text('${x['customer']} • ${x['date'].toString().substring(0, 16).replaceAll('T', ' ')}'), trailing: Text(_ar(_num(x['total'])), style: const TextStyle(fontWeight: FontWeight.bold)))]), action: FilledButton.icon(onPressed: _sell, icon: const Icon(Icons.add_shopping_cart), label: const Text('Vendre')));
+  Widget _reports() {
+    final now = DateTime.now();
+    double sumWhere(bool Function(DateTime) filter) => sales.fold<double>(0, (double sum, x) { final date = DateTime.tryParse('${x['date']}'); return sum + (date != null && filter(date) ? _num(x['total']) : 0); });
+    return ListView(children: [_panel('Synthèse commerciale', Column(children: [ListTile(title: const Text('Ventes aujourd’hui'), trailing: Text(_ar(sumWhere((d) => d.year == now.year && d.month == now.month && d.day == now.day)))), ListTile(title: const Text('Ventes ce mois'), trailing: Text(_ar(sumWhere((d) => d.year == now.year && d.month == now.month)))), ListTile(title: const Text('Nombre de transactions'), trailing: Text('${sales.length}')), ListTile(title: const Text('Stock valorisé au prix d’achat'), trailing: Text(_ar(articles.fold<double>(0, (s,x) => s + _num(x['qty'])*_num(x['cost'])))))])), _panel('Informations', const Text('Rapports calculés localement. Les montants représentent les ventes enregistrées, sans gestion des retours, taxes ni paiements à crédit dans cette version.'))]);
+  }
+  Widget _content() { switch (page) { case 0: return _dashboard(); case 1: return _entities('articles'); case 2: return _sales(); case 3: return _entities('clients'); case 4: return _entities('suppliers'); case 5: return _reports(); default: return const SettingsScreen(); } }
+  @override
+  Widget build(BuildContext context) {
+    final wide = MediaQuery.sizeOf(context).width >= 800;
+    return Scaffold(key: _scaffoldKey, appBar: AppBar(title: Text('i-Kaink’s  •  ${_names[page]}'), backgroundColor: const Color(0xff173c72), foregroundColor: Colors.white, leading: wide ? null : IconButton(onPressed: () => _scaffoldKey.currentState?.openDrawer(), icon: const Icon(Icons.menu))),
+      drawer: wide ? null : Drawer(child: SafeArea(child: _navigation(true))),
+      body: Row(children: [if (wide) SizedBox(width: 235, child: Material(color: const Color(0xffeaf0f9), child: _navigation(false))), Expanded(child: loading ? const Center(child: CircularProgressIndicator()) : error != null ? Center(child: Text('Erreur de lecture : $error')) : Padding(padding: const EdgeInsets.all(12), child: _content()))]),
+    );
+  }
+  Widget _navigation(bool drawer) => ListView(children: [const Padding(padding: EdgeInsets.all(22), child: Text('QUINCAILLERIE GÉNÉRALE', style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xff173c72)))), for (var i=0; i<_names.length; i++) ListTile(selected: page == i, selectedTileColor: const Color(0xffd8e6ff), leading: Icon(_icons[i]), title: Text(_names[i]), onTap: () { setState(() => page = i); if (drawer) Navigator.of(context).pop(); })]);
+}

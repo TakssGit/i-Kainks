@@ -1,0 +1,6 @@
+Correctif du lanceur i-Kaink's
+1. Decompresser les deux scripts dans D:\IA\AppWebWin\i-kainks
+2. Double-cliquer LANCER_IKAINKS_PC_MOBILE.bat
+3. Si les pages sont absentes, indiquer le chemin du vrai dossier contenant les pages (directement ou dans web/public/preview/build\web).
+4. Python 3 doit etre installe pour lancer le serveur. Si le port 51711 est occupe par un autre serveur, le script ne le stoppe pas automatiquement.
+5. Ce lanceur n'installe pas les pages manquantes et ne modifie pas la base de donnees.
