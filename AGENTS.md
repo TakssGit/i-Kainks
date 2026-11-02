@@ -1,0 +1,2 @@
+# Développement i-Kainks
+Lire docs/FILE_MAP.md puis docs/ROADMAP.md et reports/LATEST_REPORT.md avant les recherches. Réutiliser le checkout isolé ; aucun worktree sans demande explicite. Travailler sur codex/i-kainks-pro-v2, préserver les données et les changements existants. Ne jamais confondre prototype HTML, aperçu Flutter et application native. Tester les corrections ciblées et consigner les preuves. Ne publier aucune donnée réelle. Aucune migration destructive ni règle fiscale supposée. Tests du simulateur : node tests/transactions.test.cjs.
