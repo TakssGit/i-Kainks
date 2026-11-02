@@ -435,3 +435,7 @@ Base : aa21a5c. Consulter ce fichier avant les recherches ciblées.
 - `windows/runner/utils.h`
 - `windows/runner/win32_window.cpp`
 - `windows/runner/win32_window.h`
+
+## Publication de l’état actuel
+- `scripts/build_preview.py` : paquet statique indépendant de Flutter, stockage de démonstration séparé.
+- `.github/workflows/current-preview.yml` : tests, paquet et déploiement Pages depuis la branche de développement.
