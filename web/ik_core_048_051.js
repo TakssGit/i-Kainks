@@ -1,0 +1,12 @@
+/* i-Kaink's pack 048-051 - isolated, deterministic business rules. No persistence or UI side effects. */
+(function(root,factory){var api=factory();if(typeof module==='object'&&module.exports)module.exports=api;else root.IKCore048051=api;})(typeof globalThis!=='undefined'?globalThis:this,function(){
+'use strict';
+function assertString(s,name){if(typeof s!=='string'||!s.trim())throw Error(name+' requis');return s.trim();}
+function money(n,name){if(typeof n!=='number'||!Number.isSafeInteger(n)||n<0)throw Error(name+' doit etre un entier positif en Ariary');return n;}
+function qty(n,name){if(typeof n!=='number'||!Number.isSafeInteger(n)||n<=0)throw Error(name+' doit etre un entier strictement positif');return n;}
+function product(p){if(!p||typeof p!=='object')throw Error('Article requis');return {id:assertString(p.id,'ID article'),label:assertString(p.label,'Libelle'),priceAr:money(p.priceAr,'Prix'),stock:money(p.stock,'Stock')};}
+function movement(p,delta,reason){var x=product(p);if(!Number.isSafeInteger(delta)||delta===0)throw Error('Mouvement invalide');assertString(reason,'Motif');var next=x.stock+delta;if(!Number.isSafeInteger(next)||next<0)throw Error('Stock insuffisant ou depassement');return {before:x.stock,after:next,delta:delta,reason:reason,productId:x.id};}
+function line(p,quantity){var x=product(p),q=qty(quantity,'Quantite');var total=x.priceAr*q;if(!Number.isSafeInteger(total))throw Error('Montant trop eleve');return {productId:x.id,quantity:q,unitPriceAr:x.priceAr,totalAr:total};}
+function sale(items,stockById){if(!Array.isArray(items)||!items.length)throw Error('Vente vide');if(!stockById||typeof stockById!=='object')throw Error('Stock requis');var needed=Object.create(null),lines=[],total=0;items.forEach(function(i){if(!i||typeof i!=='object')throw Error('Ligne invalide');var l=line(i.product,i.quantity);needed[l.productId]=(needed[l.productId]||0)+l.quantity;if(!Number.isSafeInteger(needed[l.productId]))throw Error('Quantite trop elevee');total+=l.totalAr;if(!Number.isSafeInteger(total))throw Error('Montant trop eleve');lines.push(l);});Object.keys(needed).forEach(function(id){var s=stockById[id];if(!Number.isSafeInteger(s)||s<needed[id])throw Error('Stock insuffisant: '+id);});return {lines:lines,totalAr:total,stockDeltas:Object.keys(needed).map(function(id){return {productId:id,delta:-needed[id]};})};}
+return Object.freeze({product:product,movement:movement,line:line,sale:sale});
+});

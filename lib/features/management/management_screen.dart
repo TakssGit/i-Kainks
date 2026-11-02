@@ -1,3 +1,10 @@
+import '../clients/clients_screen.dart';
+import '../suppliers/suppliers_screen.dart';
+import '../inventory/inventory_screen.dart';
+import '../purchases/purchases_screen.dart';
+import '../sales/sales_pro_screen.dart';
+import '../quotes/quotes_pro_screen.dart';
+import '../../core/database/database_service.dart';
 import 'ik_tables_screen.dart';
 import 'dart:convert';
 import 'package:flutter/material.dart';
@@ -503,19 +510,19 @@ class _ManagementScreenState extends State<ManagementScreen> {
       case 0:
         return _dashboard();
       case 1:
-        return _entities('articles');
+        return InventoryProScreen(onChanged: _load);
       case 2:
-        return _sales();
+        return SalesProScreen(onChanged: _load);
       case 3:
-        return _entities('clients');
+        return ClientsScreen(database: DatabaseService.isar);
       case 4:
-        return _entities('suppliers');
+        return SuppliersScreen(database: DatabaseService.isar);
       case 5:
         return _reports();
       case 7:
-        return const IkTableScreen(moduleKey: 'purchases');
+        return PurchasesProScreen(onChanged: _load);
       case 8:
-        return const IkTableScreen(moduleKey: 'quotes');
+        return const QuotesProScreen();
       case 9:
         return const IkTableScreen(moduleKey: 'expenses');
       case 10:
@@ -579,6 +586,7 @@ class _ManagementScreenState extends State<ManagementScreen> {
               title: Text(_names[i]),
               onTap: () {
                 setState(() => page = i);
+                if (i != 1) _load();
                 if (drawer) Navigator.of(context).pop();
               })
       ]);

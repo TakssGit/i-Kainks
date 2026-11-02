@@ -1,0 +1,20 @@
+/* i-Kaink's — impression unifiee 096-099. Aucune modification de l'ecran. */
+@media screen { .ik-print-header,.ik-print-footer { display:none !important; } }
+@media print {
+  @page { size:A4; margin:23mm 14mm 20mm; }
+  html,body { background:white !important; color:#17243a !important; }
+  .ik-print-header { position:fixed; top:-18mm; left:0; right:0; height:15mm; display:flex !important; justify-content:space-between; align-items:center; border-bottom:1.5pt solid #193d72; padding-bottom:2mm; font:9pt Arial,sans-serif; color:#193d72; }
+  .ik-print-header strong { font-size:12pt; letter-spacing:.3pt; }
+  .ik-print-footer { position:fixed; bottom:-15mm; left:0; right:0; height:12mm; display:flex !important; justify-content:space-between; align-items:center; border-top:1pt solid #193d72; padding-top:2mm; font:8pt Arial,sans-serif; color:#43556b; }
+  .ik-print-footer .ik-page-number::after { content:counter(page); }
+  .ik-no-print, .ik-technical-print-only, [data-ik-print="hide"],
+  .ik-print-toolbar, .ik-print-instruction, .ik-print-debug,
+  [data-testid="debug-panel"] { display:none !important; }
+  .ik-print-document { break-inside:auto; }
+  table { border-collapse:collapse; width:100%; }
+  tr, img, .print-keep-together { break-inside:avoid; }
+  thead { display:table-header-group; }
+  tfoot { display:table-footer-group; }
+  a { color:inherit !important; text-decoration:none !important; }
+  * { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+}

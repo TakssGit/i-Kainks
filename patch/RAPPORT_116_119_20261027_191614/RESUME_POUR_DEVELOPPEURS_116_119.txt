@@ -1,0 +1,4 @@
+PACK 116-119 : outils de tableaux Web (recherche locale, remise a zero, CSV), inventaire, sources selectionnees.
+AUCUNE ECRITURE EN BASE, AUCUNE INTEGRATION FLUTTER/ISAR.
+Version Pro : 0/5 workflows certifies selon les rapports fournis.
+Pour une integration reelle : fournir SOURCES_CIBLEES_116_119.zip apres controle de confidentialite.

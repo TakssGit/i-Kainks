@@ -1,0 +1,10 @@
+/* Pack 02C : controle d'integrite et fiche client, TEST uniquement */
+(()=>{'use strict';
+const DB='ikainks_clients_test_plan02',STORE='clients';
+const bar=document.querySelector('section.panel.no-print .controls');if(!bar||document.getElementById('ik02cAudit'))return;
+const button=document.createElement('button');button.id='ik02cAudit';button.className='secondary';button.type='button';button.textContent='Contrôler les fiches';bar.appendChild(button);
+const report=document.createElement('div');report.id='ik02cReport';report.setAttribute('role','status');report.style.cssText='margin-top:10px;white-space:pre-wrap;font-size:13px;color:#243c5c';bar.parentElement.appendChild(report);
+function open(){return new Promise((ok,no)=>{const r=indexedDB.open(DB);r.onupgradeneeded=()=>{r.transaction.abort();no(Error('Base test absente'));};r.onsuccess=()=>{if(!r.result.objectStoreNames.contains(STORE)){r.result.close();no(Error('Table absente'));return;}ok(r.result);};r.onerror=()=>no(r.error);});}
+function read(db){return new Promise((ok,no)=>{const t=db.transaction(STORE,'readonly'),r=t.objectStore(STORE).getAll();r.onsuccess=()=>ok(r.result);r.onerror=()=>no(r.error);});}
+button.onclick=async()=>{button.disabled=true;try{const db=await open();let clients;try{clients=await read(db);}finally{db.close();}const issues=[],codes=new Set();for(const c of clients){const code=String(c.code||'').trim().toLocaleLowerCase('fr');if(!code||!String(c.nom||'').trim())issues.push('Fiche #'+c.id+' : code ou nom manquant');if(codes.has(code))issues.push('Doublon code : '+code);codes.add(code);if(c.email&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(c.email))issues.push('E-mail incorrect : '+code);if(!['actif','inactif'].includes(c.statut))issues.push('Statut invalide : '+code);}report.textContent='Fiches vérifiées : '+clients.length+' | anomalies : '+issues.length+'\n'+(issues.length?issues.slice(0,50).join('\n'):'Aucune anomalie détectée dans les règles vérifiées.')+'\nContrôle limité à la base Clients de test.';}catch(e){report.textContent='Contrôle impossible : '+e.message;}finally{button.disabled=false;}};
+})();

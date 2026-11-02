@@ -2,6 +2,8 @@ import 'dart:io';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 import '../../features/settings/global_settings.dart';
+import '../../features/clients/client.dart';
+import '../../features/suppliers/supplier.dart';
 
 class DatabaseService {
   static late final Isar isar;
@@ -11,7 +13,7 @@ class DatabaseService {
     if (!await dbDir.exists()) await dbDir.create(recursive: true);
     final existing = Isar.getInstance('ikainks');
     isar = existing ?? await Isar.open(
-      [GlobalSettingsSchema], directory: dbDir.path, name: 'ikainks');
+      [GlobalSettingsSchema, ClientSchema, SupplierSchema], directory: dbDir.path, name: 'ikainks');
     final current = await isar.globalSettings.get(1);
     if (current == null) {
       await isar.writeTxn(() async {

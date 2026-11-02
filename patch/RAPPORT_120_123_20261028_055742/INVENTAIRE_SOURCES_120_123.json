@@ -1,0 +1,317 @@
+[
+  {
+    "path": "lib/core/database/database_service.dart",
+    "bytes": 1279,
+    "sha256": "9e7eeb0f231b20aa2687fda812602c59861adacd4f2983d17002d6f9e4cf0c02"
+  },
+  {
+    "path": "lib/features/management/ik_tables_screen.dart",
+    "bytes": 21331,
+    "sha256": "70a034bea5dda8e5eed8a04f68748e8fa5b192deeb01f1182df208ba70184e4a"
+  },
+  {
+    "path": "lib/features/management/management_screen.dart",
+    "bytes": 22059,
+    "sha256": "5bdcd5f803326b0330a7a47e4b79e16e007d0a96ddfec070a44cb66fad9aa228"
+  },
+  {
+    "path": "lib/features/settings/global_settings.dart",
+    "bytes": 362,
+    "sha256": "e28e3924cca0a6b54118e7f727aeb34d0f6a9e8d4eab9cd81bdc9d9f675677fb"
+  },
+  {
+    "path": "lib/features/settings/global_settings.g.dart",
+    "bytes": 60722,
+    "sha256": "5a25f5b49df22c66f9284694f1847a74912e0b85806f2b35be66f9174e56fe68"
+  },
+  {
+    "path": "lib/features/settings/settings_entry.dart",
+    "bytes": 92,
+    "sha256": "7db50af36af0e2b5de4530bc35140b83d95d423116bb5275c6d9f5140d3c947f"
+  },
+  {
+    "path": "lib/features/settings/settings_entry_native.dart",
+    "bytes": 225,
+    "sha256": "0188f4966699f461cee1de5137fd2e4bb6e3c717100cb6b10415621915014403"
+  },
+  {
+    "path": "lib/features/settings/settings_entry_web.dart",
+    "bytes": 2012,
+    "sha256": "13eb43f8566639877852451e1bab61876c3b36a9f18e50df1d03026a830c9863"
+  },
+  {
+    "path": "lib/features/settings/settings_screen.dart",
+    "bytes": 4160,
+    "sha256": "00476588fb859a640e7d3076424d8d45dd934cd4d44211bfa6c618145b4b6cda"
+  },
+  {
+    "path": "lib/main.dart",
+    "bytes": 883,
+    "sha256": "2a74ca541a1364141e73997754f3b394f61d4edda2a6b6680bc486aefc33fc9b"
+  },
+  {
+    "path": "lib/main_web_preview.dart",
+    "bytes": 629,
+    "sha256": "611af03ffd724a21e689b64691e5358a2f10f9063bc041b5d85ca088ed6d4300"
+  },
+  {
+    "path": "web/audit_060_063.html",
+    "bytes": 4116,
+    "sha256": "0ef28dce1e85ffcc1338e0dc6ad8127e0659b53f9115633ec9b2cfc25e027c9d"
+  },
+  {
+    "path": "web/audit_fonctionnel_042.html",
+    "bytes": 5642,
+    "sha256": "435d036c2fbc8b7c8fd4c447aaf3f4cdee7c16b85b2c686fe66fc146acfb917b"
+  },
+  {
+    "path": "web/audit_integration_064_067.html",
+    "bytes": 4303,
+    "sha256": "7744a1fcd85b0192a0f48b344e6a9a1e9d9b7b57af1ce268e955ee441bdaeb88"
+  },
+  {
+    "path": "web/controle_pro_076_079.html",
+    "bytes": 3234,
+    "sha256": "d028c0166b4c2c9a465d1d59986d128740829c0cee5123536e9b417af4f01637"
+  },
+  {
+    "path": "web/diagnostic_036.html",
+    "bytes": 1602,
+    "sha256": "b8ed02a49c999053d58361122591a611e1da2c8ca6116194367672030746bd3c"
+  },
+  {
+    "path": "web/ik_app_021.css",
+    "bytes": 9280,
+    "sha256": "5bf6f576afed7afdeefe1eedd093c69945c4a220f2dfeb5c2c49671ca4c5ba3b"
+  },
+  {
+    "path": "web/ik_app_021.js",
+    "bytes": 24473,
+    "sha256": "1bc216395d0b3a18792b9d92538564f2ed6543ce27142aebd9cb81e00b8aa584"
+  },
+  {
+    "path": "web/ik_boot_040.js",
+    "bytes": 3599,
+    "sha256": "a5cfd5c02643a3cf97e06c0c83ac7710417fa70a3b476512f354a2051556b1a4"
+  },
+  {
+    "path": "web/ik_compact_104_107.css",
+    "bytes": 962,
+    "sha256": "4b8d7ed0ae1af3a529b051ec0deca2a935217c0b21af631377416aebb1bc48db"
+  },
+  {
+    "path": "web/ik_compact_104_107.js",
+    "bytes": 897,
+    "sha256": "35907da425e8881dfeeeeb36ec3f70d39b94fff1f726673ca420e19381c09bf5"
+  },
+  {
+    "path": "web/ik_core_048_051.js",
+    "bytes": 2444,
+    "sha256": "5e63f7275dbbf7c43f414dfffb7580826bdc1cbd9b162eafc03f20ac0058e2a9"
+  },
+  {
+    "path": "web/ik_database_029.js",
+    "bytes": 8790,
+    "sha256": "8da24a2c104e2a9da3ca2f924763dd240266b9a279acbb239baf353784a2347e"
+  },
+  {
+    "path": "web/ik_demo_017.js",
+    "bytes": 12324,
+    "sha256": "89118c21fc440d11c73f5a155126901e19c836c463b0695a04719d5b2bd735bb"
+  },
+  {
+    "path": "web/ik_dev_app.css",
+    "bytes": 14928,
+    "sha256": "36726e554f33fb0602cddfecbf4f5f9e4a29d8757a42d878228536f4c6060cf0"
+  },
+  {
+    "path": "web/ik_dev_app.html",
+    "bytes": 4162,
+    "sha256": "59186ff061fcfe73c4bed14c424318e8579becf0a40ed72c077881f99663b1c2"
+  },
+  {
+    "path": "web/ik_dev_app.js",
+    "bytes": 22391,
+    "sha256": "d473d78265d970fc5052e24f4953e807a2c49ffc74b52573909c417123af00ac"
+  },
+  {
+    "path": "web/ik_diagnostic_033.js",
+    "bytes": 3329,
+    "sha256": "7ba16bf4755ec6f06c47a4f3fc3846e8268efd481bfe79a8a288e5edda3df0af"
+  },
+  {
+    "path": "web/ik_health_036.js",
+    "bytes": 3196,
+    "sha256": "8b497e1b95522330c489e27ee7c09897756cc17ce608af06954795312cd99cce"
+  },
+  {
+    "path": "web/ik_multilignes_100_103.js",
+    "bytes": 11084,
+    "sha256": "af5282c445723d3de0eda39d86d787380e11bf13ba84391a880f222e16a7dbea"
+  },
+  {
+    "path": "web/ik_mvc.js",
+    "bytes": 998,
+    "sha256": "8b577fcbe1cfa2cbf73fc2f5a558c753e88a26876808f08bdc03a03c440a1360"
+  },
+  {
+    "path": "web/ik_passerelle_108_111.html",
+    "bytes": 2739,
+    "sha256": "7ffe24e926629fdc46562c13e6f43eb14903af108dccf8787db2c91f36cc374f"
+  },
+  {
+    "path": "web/ik_passerelle_108_111.js",
+    "bytes": 4948,
+    "sha256": "24fc8c86d5dd9937ffec565b3fca8955ef4dd3100add8ab7ffd0648e9b086cfb"
+  },
+  {
+    "path": "web/ik_patch_018.js",
+    "bytes": 12274,
+    "sha256": "b05905e570c2b556b768dcf9d270dea4628e604efa0b8d91b6331ad66ec60230"
+  },
+  {
+    "path": "web/ik_patch_019.js",
+    "bytes": 9344,
+    "sha256": "8766edf7b2f46e63744a56fd4d25a9931083ca668e4e57b43b8126f936b96921"
+  },
+  {
+    "path": "web/ik_patch_020.js",
+    "bytes": 14647,
+    "sha256": "11c2488fc57e381679c74e05a67536f3dcd7f153fb7ae03fc9ecf4056974c8c8"
+  },
+  {
+    "path": "web/ik_patch_022.css",
+    "bytes": 5824,
+    "sha256": "f62c274c80ba29df496738b84ad7ccbdf905c1e8c565bcdbbd23c3d4c0420597"
+  },
+  {
+    "path": "web/ik_patch_022.js",
+    "bytes": 11880,
+    "sha256": "cd23e166b68d2a9f943b03cbdd1eb670bc44268084bbea5a8d76e1c4d45ccb3d"
+  },
+  {
+    "path": "web/ik_patch_025.css",
+    "bytes": 2751,
+    "sha256": "b0072ceba2c2927af84e54b9ac253c72346afb45321df64a7691e7fec62d6aa3"
+  },
+  {
+    "path": "web/ik_patch_025.js",
+    "bytes": 18373,
+    "sha256": "15c31be6640985c7b02790a3ebec7d714f9be1a3cd68070077922c9bed50b19e"
+  },
+  {
+    "path": "web/ik_premium_034.css",
+    "bytes": 1880,
+    "sha256": "ef4828f77d3898cf871ac55db76e3bd18b13a9982c8b145ba0c6947bfd07094e"
+  },
+  {
+    "path": "web/ik_premium_034.js",
+    "bytes": 1231,
+    "sha256": "163ccbb2e7a1387fc0aae94688aa1f34cdca3ab897f8990a0190bde07366408f"
+  },
+  {
+    "path": "web/ik_print_pro_096_099.css",
+    "bytes": 1481,
+    "sha256": "237455f40249f3da13211c8b5add0fa40178d93f3c63aa8e11efcb344dd78d36"
+  },
+  {
+    "path": "web/ik_print_pro_096_099.js",
+    "bytes": 1515,
+    "sha256": "af6cb2ff39855856633ea956c15640eec5c470961622f659223ca058e3bb9988"
+  },
+  {
+    "path": "web/ik_pro_progress_080_083.js",
+    "bytes": 5165,
+    "sha256": "e534055e8f24c9cf00c1ac8920dd5556881ff4d30ec1dd1796630ba0b173976e"
+  },
+  {
+    "path": "web/ik_quality_028.js",
+    "bytes": 2666,
+    "sha256": "dc99c433312df4d3e1a678df5ebced8d3fac67d5b3916f80f01d68a6828bc874"
+  },
+  {
+    "path": "web/ik_recette_integration_112_115.html",
+    "bytes": 4541,
+    "sha256": "1e15717abda9dd417823604f4b69b2b8961a37703206d3db3426d04ff5b71bee"
+  },
+  {
+    "path": "web/ik_recette_integration_112_115.js",
+    "bytes": 7861,
+    "sha256": "3dbb077b2965f2efdbd69356b51f0add9b176a2f1c8ce378c0324a2f808cca83"
+  },
+  {
+    "path": "web/ik_recovery_039.js",
+    "bytes": 2725,
+    "sha256": "59201803af98251c8acfcd06072e254043a1824b43dd83bee1311ed60efc3d48"
+  },
+  {
+    "path": "web/ik_runtime_037.js",
+    "bytes": 3759,
+    "sha256": "08f3e096cb2df8d8f401903b8fc300aef906423ffc3374a0bbc3b61e006136c4"
+  },
+  {
+    "path": "web/ik_schema.js",
+    "bytes": 5542,
+    "sha256": "d87126dcf33dc7c37f613ce6a179ffacc2ce2251b1c4cf186316cbe46891493e"
+  },
+  {
+    "path": "web/ik_security_056_059.js",
+    "bytes": 1516,
+    "sha256": "49e57b92d1e0b416d2d7d822c9de5a5d5701bbe51f629da175b5e68431a43a96"
+  },
+  {
+    "path": "web/ik_table_tools_116_119.js",
+    "bytes": 3461,
+    "sha256": "a7edb6a8fc2b691c5c1edd70f66d2a902c089cc9556fe7fc1a51d8b7a2ed755d"
+  },
+  {
+    "path": "web/ik_tables_pro_120_123.js",
+    "bytes": 6218,
+    "sha256": "5652fb4dc6569f2a55bed3a79b70efdbe33028c4d67b6dd6e88416c1466822c5"
+  },
+  {
+    "path": "web/ik_transactions_052_055.js",
+    "bytes": 2836,
+    "sha256": "518c6717a443331aeb46c4a15768d77c12147dc8bb26b7e20d9f6b684d284575"
+  },
+  {
+    "path": "web/index.html",
+    "bytes": 1567,
+    "sha256": "e636234ce948410e8ad484c537b005eaa00322d046547b3af885db158f6e3486"
+  },
+  {
+    "path": "web/laboratoire_test_pro_092_095.html",
+    "bytes": 8740,
+    "sha256": "fea853d07209cb281f6df8cef305d2919218e5cfcc8cc24e6ec93e0dc888b98a"
+  },
+  {
+    "path": "web/preview_mobile.html",
+    "bytes": 2138,
+    "sha256": "cf2f25e587ea1f0089933f53cb0c36cc87b0bde89ee7845439af03138dff9088"
+  },
+  {
+    "path": "web/preview_pc.html",
+    "bytes": 1952,
+    "sha256": "ceafb736b75fe4197bce136be6f70ec41e2a6f22822ef7b58ddb4204e7474188"
+  },
+  {
+    "path": "web/progression_pro_072_075.html",
+    "bytes": 2426,
+    "sha256": "9673da4d0cf89ce840d6f665ce985c8c9dab20a94c867c89264e57dd6a259707"
+  },
+  {
+    "path": "web/recette_084_087.html",
+    "bytes": 5574,
+    "sha256": "ef325ed726578daab90cfd7114ae698f9339f5c11e0e7e7f955baa44b73c76d1"
+  },
+  {
+    "path": "web/recette_metier_068_071.html",
+    "bytes": 4270,
+    "sha256": "d099950b94557c1853f226d4f8a327d3bb98d74f201e2bc7528191d9b7d6a21f"
+  },
+  {
+    "path": "web/validation_pro_088_091.html",
+    "bytes": 4803,
+    "sha256": "73aa6b2cf4dade79c067b46d624965824c3d0beb7ff09651301678a40a4ac587"
+  }
+]

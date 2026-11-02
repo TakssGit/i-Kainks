@@ -1,0 +1,3 @@
+PACK 124-135 CONSOLIDE : 1 installation pour tableaux HTML (recherche, tri, pagination, CSV, impression A4), audit et collecte de sources.
+AUCUNE MODIFICATION DES DONNEES COMMERCIALES OU FLUTTER/ISAR.
+INTEGRATION METIER REELLE : non certifiee; sources actuelles necessaires.

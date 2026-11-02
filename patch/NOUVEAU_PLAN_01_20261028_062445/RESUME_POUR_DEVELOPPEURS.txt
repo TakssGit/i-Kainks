@@ -1,0 +1,18 @@
+NOUVEAU PLAN 01 - GEL DE REFERENCE
+[INSTALLATION 10%] Projet verifie; aucun fichier metier ne sera modifie
+[INSTALLATION 35%] Inventaire de 91 fichiers de code, sans suppression
+[INSTALLATION 55%] Inventaire et empreintes SHA-256 enregistres
+[INSTALLATION 75%] Archive de code controlee (a verifier avant transmission)
+repertoire_web: PRESENT
+repertoire_flutter: PRESENT
+point_entree_web: PRESENT
+point_entree_flutter: PRESENT
+archive_sources: PRESENT
+inventaire: PRESENT
+TOTAL SOURCES: 91
+BASE DE DONNEES: AUCUNE MODIFICATION
+FENETRES METIER: AUCUNE MODIFICATION
+VERSION PRO: NON CERTIFIEE
+ARCHIVE: D:\IA\AppWebWin\i-kainks\patch\NOUVEAU_PLAN_01_20261028_062445\SOURCES_CODE_A_VERIFIER_AVANT_PARTAGE.zip
+
+PROCHAIN LOT: gestion CLIENTS complete sur sources reelles, puis tests automatises et manuels.

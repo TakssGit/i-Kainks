@@ -1,0 +1,6 @@
+/* Non-destructive table controls, isolated class names */
+.ikpro-toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:7px;padding:10px 8px;margin:10px 0;border:1px solid #dce3ec;border-radius:9px;background:#f8fafc;color:#18314c;font:13px system-ui,sans-serif}
+.ikpro-toolbar input,.ikpro-toolbar select,.ikpro-btn{min-height:34px;border:1px solid #b9c8d8;border-radius:6px;background:white;color:#17314e;padding:5px 9px;font:inherit}
+.ikpro-toolbar input{flex:1 1 170px;min-width:120px}.ikpro-btn{cursor:pointer}.ikpro-btn:hover{background:#e8f0fa}.ikpro-btn:disabled{opacity:.45;cursor:default}.ikpro-count{font-size:12px;white-space:nowrap}
+@media(max-width:640px){.ikpro-toolbar{padding:8px}.ikpro-toolbar input{flex-basis:100%}.ikpro-toolbar .ikpro-count{flex-basis:100%}}
+@media print{.ikpro-toolbar{display:none!important}}

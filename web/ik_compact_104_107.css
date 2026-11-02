@@ -1,0 +1,12 @@
+/* i-Kaink's optional compact mode; scoped to class, no print impact */
+@media screen {
+ body.ik-compact-104 :is(.card,.panel,.stat-card,.dashboard-card,.tile){padding:12px!important;margin-bottom:10px!important}
+ body.ik-compact-104 :is(table){border-collapse:collapse;width:100%}
+ body.ik-compact-104 :is(th,td){padding:7px 9px!important}
+ body.ik-compact-104 :is(h1,h2,h3){margin-top:8px!important;margin-bottom:8px!important}
+ body.ik-compact-104 :is(input,select,textarea){max-width:100%;box-sizing:border-box}
+ body.ik-compact-104 :is(.container,.main-content,.content){max-width:100%}
+ #ik-compact-toggle-104{position:fixed;bottom:16px;right:16px;z-index:2147483000;border:1px solid #c5cbd4;background:#18365b;color:#fff;border-radius:22px;padding:10px 14px;box-shadow:0 2px 10px #0003;cursor:pointer;font:600 13px system-ui}
+ #ik-compact-toggle-104:focus-visible{outline:3px solid #d5a62b}
+}
+@media print {#ik-compact-toggle-104{display:none!important}}

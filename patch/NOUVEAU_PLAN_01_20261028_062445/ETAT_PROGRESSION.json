@@ -1,0 +1,34 @@
+{
+  "phase": "01_SOCLE",
+  "scope": "inventaire, gel de reference, preparation de la recette",
+  "checks": [
+    {
+      "name": "repertoire_web",
+      "ok": true
+    },
+    {
+      "name": "repertoire_flutter",
+      "ok": true
+    },
+    {
+      "name": "point_entree_web",
+      "ok": true
+    },
+    {
+      "name": "point_entree_flutter",
+      "ok": true
+    },
+    {
+      "name": "archive_sources",
+      "ok": true
+    },
+    {
+      "name": "inventaire",
+      "ok": true
+    }
+  ],
+  "workflows_metier_certifies": 0,
+  "workflows_metier_total": 5,
+  "version_pro": "NON CERTIFIEE",
+  "autres_gestions_modifiees": false
+}

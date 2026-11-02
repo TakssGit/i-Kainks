@@ -1,0 +1,4 @@
+PACK 120-123 : tri, pagination, impression de tableaux HTML, inventaire de sources.
+AUCUNE ECRITURE DANS LES BASES DE DONNEES, AUCUNE MODIFICATION FLUTTER/ISAR.
+Les workflows commerciaux ne sont pas certifies par ce pack.
+Pour l integration metier reelle, transmettre SOURCES_CIBLEES_120_123.zip apres verification de confidentialite.

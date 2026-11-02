@@ -54,3 +54,14 @@ android/.gradle/
 .env
 key.properties
 RESULTAT_PUSH_GITHUB.txt
+
+# i-Kainks : sauvegardes, secrets et fichiers locaux
+*.bak
+RESULTAT_*.txt
+.env.*
+!.env.example
+*.sqlite
+*.sqlite3
+*.db
+*.keystore
+*.jks

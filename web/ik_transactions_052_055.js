@@ -1,0 +1,14 @@
+/* i-Kaink's 052-055: transaction simulator, NO production database writes. */
+(function(root,factory){const api=factory();if(typeof module==='object'&&module.exports)module.exports=api;root.IKTransactions052055=api;})(typeof globalThis!=='undefined'?globalThis:this,function(){
+'use strict';
+function money(n){if(!Number.isSafeInteger(n)||n<0)throw Error('Montant invalide (entier >= 0)');return n;}
+function qty(n){if(!Number.isSafeInteger(n)||n<=0)throw Error('Quantite invalide');return n;}
+function id(s){if(typeof s!=='string'||!s.trim())throw Error('Identifiant invalide');return s.trim();}
+function create(initial){const state={stock:{},sales:[],receipts:[],payments:[],events:[],keys:[]};for(const [k,v] of Object.entries(initial||{})){id(k);if(!Number.isSafeInteger(v)||v<0)throw Error('Stock initial invalide');state.stock[k]=v;}return state;}
+function transact(state,action){if(!state||!action||typeof action!=='object')throw Error('Transaction invalide');const key=id(action.key);if(state.keys.includes(key))return {status:'duplicate',state};const draft=JSON.parse(JSON.stringify(state));const product=id(action.product);const n=qty(action.quantity);const before=draft.stock[product]||0;let total=0;
+if(action.type==='receipt'){draft.stock[product]=before+n;draft.receipts.push({key,product,quantity:n});}
+else if(action.type==='sale'){const unit=money(action.unitPrice);if(before<n)throw Error('Stock insuffisant');total=n*unit;if(!Number.isSafeInteger(total))throw Error('Montant trop grand');draft.stock[product]=before-n;draft.sales.push({key,product,quantity:n,unitPrice:unit,total});}
+else throw Error('Type de transaction inconnu');draft.keys.push(key);draft.events.push({key,type:action.type,product,quantity:n});return {status:'applied',state:draft,total};}
+function pay(state,payment){const key=id(payment.key),saleKey=id(payment.saleKey),amount=money(payment.amount);if(state.keys.includes(key))return {status:'duplicate',state};const sale=state.sales.find(s=>s.key===saleKey);if(!sale)throw Error('Vente inexistante');const paid=state.payments.filter(p=>p.saleKey===saleKey).reduce((a,p)=>a+p.amount,0);if(amount===0||amount>sale.total-paid)throw Error('Paiement hors solde');const draft=JSON.parse(JSON.stringify(state));draft.payments.push({key,saleKey,amount});draft.keys.push(key);draft.events.push({key,type:'payment',saleKey,amount});return {status:'applied',state:draft,balance:sale.total-paid-amount};}
+function quote(items){if(!Array.isArray(items)||items.length===0)throw Error('Devis vide');let total=0;for(const item of items){id(item.product);const line=qty(item.quantity)*money(item.unitPrice);if(!Number.isSafeInteger(line)||!Number.isSafeInteger(total+line))throw Error('Montant trop grand');total+=line;}return {lines:items.length,total};}
+return Object.freeze({create,transact,pay,quote});});
