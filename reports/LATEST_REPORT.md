@@ -11,3 +11,6 @@ Tests métier : 4 réussis. Le build statique est réussi.
 L’accès API GitHub et la vérification de takssgit.github.io sont bloqués par le proxy. Statut distant du workflow inconnu.
 Si Pages n’est pas activé : Settings > Pages > Source = GitHub Actions. Si la protection de l’environnement github-pages refuse la branche, autoriser codex/i-kainks-pro-v2 dans ses règles de déploiement. Relancer ensuite le workflow « Aperçu de l’état actuel » depuis Actions.
 URL cible non vérifiée : https://takssgit.github.io/i-Kainks/ . Aucune réussite de déploiement annoncée sans preuve.
+
+## 2026-11-03 — préparation des builds natifs
+Workflow Android/Windows ajouté avec dépendances verrouillées, analyse et tests obligatoires. Guide de téléchargement et script Windows d’ouverture des destinations ajoutés. Aucun APK ni EXE produit localement : Flutter absent et téléchargement toujours refusé (403). API GitHub inaccessible, builds distants non confirmés. Lots fonctionnels B–G toujours incomplets. L’accès réseau doit être rétabli pour diagnostiquer et corriger les builds ; aucun statut prêt-à-utiliser annoncé.

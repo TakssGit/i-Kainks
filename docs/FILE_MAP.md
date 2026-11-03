@@ -439,3 +439,6 @@ Base : aa21a5c. Consulter ce fichier avant les recherches ciblées.
 ## Publication de l’état actuel
 - `scripts/build_preview.py` : paquet statique indépendant de Flutter, stockage de démonstration séparé.
 - `.github/workflows/current-preview.yml` : tests, paquet et déploiement Pages depuis la branche de développement.
+- `.github/workflows/native-builds.yml` : analyse/tests et builds Android/Windows distants.
+- `scripts/open_build_outputs.ps1` : ouverture locale Windows des dossiers de compilation existants.
+- `docs/DELIVERY.md` : destinations, téléchargement et limites de livraison.
